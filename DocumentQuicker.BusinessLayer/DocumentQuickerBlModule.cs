@@ -3,7 +3,6 @@ using AutoMapper;
 using DocumentQuicker.BusinessLayer.Interfaces;
 using DocumentQuicker.BusinessLayer.MapperProfiles;
 using DocumentQuicker.BusinessLayer.Services;
-using DocumentQuicker.DataProvider;
 
 namespace DocumentQuicker.BusinessLayer
 {

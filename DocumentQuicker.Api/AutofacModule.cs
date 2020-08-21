@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Autofac;
 using AutoMapper;
 using DocumentQuicker.Api.MapperProfiles;
+using DocumentQuicker.Api.Validators;
 using DocumentQuicker.BusinessLayer;
 using DocumentQuicker.DataProvider;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +18,11 @@ namespace DocumentQuicker.Api
         {
             builder.RegisterModule(new DocumentQuickerBlModule());
             
+            //TODO find the best way to register mapper profiles. 
             builder.RegisterType<BlToDto>()
                 .As<Profile>();
-            
             builder.RegisterType<DtoToBl>()
                 .As<Profile>();
-
             builder.Register(c => new MapperConfiguration(cfg =>
             {
                 foreach (var profile in c.Resolve<IEnumerable<Profile>>())
@@ -30,6 +30,12 @@ namespace DocumentQuicker.Api
                     cfg.AddProfile(profile);
                 }
             })).AsSelf().SingleInstance();
+
+            //TODO find the best way to register validators. 
+            //TODO decorate validators. Sure I can to inject some validators in the controller. But the decorator pattern is preferred.
+            builder.RegisterType<ShortBankInfoDtoValidator>()
+                .AsSelf()
+                .InstancePerLifetimeScope();
             
             builder.Register(c => c.Resolve<MapperConfiguration>()
                 .CreateMapper(c.Resolve))

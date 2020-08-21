@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using DocumentQuicker.Api.Models;
+using DocumentQuicker.Api.Validators;
 using DocumentQuicker.BusinessLayer.Interfaces;
 using DocumentQuicker.BusinessLayer.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace DocumentQuicker.Api.Controllers
 {
@@ -14,52 +18,75 @@ namespace DocumentQuicker.Api.Controllers
     [ApiController]
     public class BankInfoController : ControllerBase
     {
+        private readonly ShortBankInfoDtoValidator _shortBankInfoDtoValidator;
         private readonly IBankInfoService _bankInfoService;
         private readonly IMapper _mapper;
 
         public BankInfoController(IBankInfoService bankInfoService,
+                                  ShortBankInfoDtoValidator shortBankInfoDtoValidator,
                                   IMapper mapper)
         {
             _bankInfoService = bankInfoService ?? throw new ArgumentNullException(nameof(_bankInfoService));
+            _shortBankInfoDtoValidator = shortBankInfoDtoValidator ??
+                                         throw new ArgumentNullException(nameof(_shortBankInfoDtoValidator));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));
         }
         
         [HttpPost]
+        [Produces("application/json")]
+        [ProducesErrorResponseType(typeof(void))]
+        [ProducesResponseType(typeof(BankInfoDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(IList<ValidationDetails>),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<BankInfoDto>> Create(ShortBankInfoDto bankInfo)
         {
-            var result = await _bankInfoService.Create(_mapper.Map<BankInfo>(bankInfo));
-            return Ok(_mapper.Map<BankInfoDto>(result));
-        }
+            var validation = await _shortBankInfoDtoValidator.ValidateAsync(bankInfo);
+            if (!validation.IsValid)
+            {
+                var details = validation.Errors.Select(x => new ValidationDetails()
+                {
+                    AttemptedValue = x.AttemptedValue == null ? "null" : x.AttemptedValue.ToString(),
+                    ErrorMessage = x.ErrorMessage,
+                    PropertyName = x.PropertyName
+                }).ToList();
+                
+                return BadRequest(details);
+            }
 
-        [HttpGet]
-        public async Task<ActionResult<IList<BankInfoDto>>> Get()
-        {
-            var result = await _bankInfoService.Get();
-            
-            return Ok(result.Select(x => _mapper.Map<BankInfoDto>(x)).ToList());
-        }
-        
-        [HttpGet("{count}")]
-        public async Task<ActionResult<IList<BankInfoDto>>> Get(int count)
-        {
-            return Ok(await _bankInfoService.Get(count));
-        }
-
-        [HttpGet("{count}/{offset}")]
-        public async Task<ActionResult<IList<BankInfoDto>>> Get(int count, int offset)
-        {
-            return Ok(await _bankInfoService.Get(count: count, offset: offset));
-        }
-        
-        [HttpGet("{id}/info")] 
-        public async Task<ActionResult<BankInfoDto>> Get(Guid id)
-        {
-            return Ok(await _bankInfoService.Get(id));
+            try
+            {
+                var result = await _bankInfoService.Create(_mapper.Map<BankInfo>(bankInfo));
+                return Ok(_mapper.Map<BankInfoDto>(result));
+            }
+            //TODO append error handler middleware. Also append logging!
+            catch 
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpPut("{id}")]
+        [Produces("application/json")]
+        [ProducesErrorResponseType(typeof(void))]
+        [ProducesResponseType(typeof(BankInfoDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IList<ValidationDetails>),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<BankInfoDto>> Update(Guid id,[FromBody] ShortBankInfoDto shortBankInfoDto)
         {
+            var validation = await _shortBankInfoDtoValidator.ValidateAsync(shortBankInfoDto);
+            if (!validation.IsValid)
+            {
+                var details = validation.Errors.Select(x => new ValidationDetails()
+                {
+                    AttemptedValue = x.AttemptedValue == null ? "null" : x.AttemptedValue.ToString(),
+                    ErrorMessage = x.ErrorMessage,
+                    PropertyName = x.PropertyName
+                }).ToList();
+                
+                return BadRequest(details);
+            }
+            
             var bankInfo = new BankInfo(description: shortBankInfoDto.Description,
                                         bic: shortBankInfoDto.Bic,
                                         corrAccount: shortBankInfoDto.CorrAccount,
@@ -67,17 +94,121 @@ namespace DocumentQuicker.Api.Controllers
                                         creationDate: DateTime.MinValue,
                                         editDate: DateTime.MinValue,
                                         isActive: true);
-            var result = await _bankInfoService.Update(bankInfo);
 
-            return Ok(_mapper.Map<BankInfoDto>(result));
+            try
+            {
+                var result = await _bankInfoService.Update(bankInfo);
+                return Ok(_mapper.Map<BankInfoDto>(result));
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpDelete("{id}")]
+        [ProducesErrorResponseType(typeof(void))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Delete(Guid id)
         {
-            await _bankInfoService.Delete(id);
+            try
+            {
+                await _bankInfoService.Delete(id);
+                return Ok();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+        
+        [HttpGet("{id}/info")] 
+        [Produces("application/json")]
+        [ProducesErrorResponseType(typeof(void))]
+        [ProducesResponseType(typeof(BankInfoDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<BankInfoDto>> Get(Guid id)
+        {
+            try
+            {
+                return Ok(await _bankInfoService.Get(id));
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+        
+        [HttpGet]
+        [Produces("application/json")]
+        [ProducesErrorResponseType(typeof(void))]
+        [ProducesResponseType(typeof(IList<BankInfoDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IList<BankInfoDto>>> Get()
+        {
+            try
+            {
+                var result = await _bankInfoService.Get();
 
-            return Ok();
+                return Ok(result.Select(x => _mapper.Map<BankInfoDto>(x)).ToList());
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+        
+        [HttpGet("{count}")]
+        [Produces("application/json")]
+        [ProducesErrorResponseType(typeof(void))]
+        [ProducesResponseType(typeof(IList<BankInfoDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IList<BankInfoDto>>> Get(int count)
+        {
+            try
+            {
+                var result = await _bankInfoService.Get(count);
+
+                return Ok(result.Select(x => _mapper.Map<BankInfoDto>(x)).ToList());
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [HttpGet("{count}/{offset}")]
+        [Produces("application/json")]
+        [ProducesErrorResponseType(typeof(void))]
+        [ProducesResponseType(typeof(IList<BankInfoDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IList<BankInfoDto>>> Get(int count, int offset)
+        {
+            try
+            {
+                var result = await _bankInfoService.Get(count: count, offset: offset);
+
+                return Ok(result.Select(x => _mapper.Map<BankInfoDto>(x)).ToList());
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
         }
     }
 }

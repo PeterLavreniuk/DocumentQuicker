@@ -17,12 +17,16 @@
         <e p="Models" t="Include">
           <e p="BankInfoDto.cs" t="Include" />
           <e p="ShortBankInfoDto.cs" t="Include" />
+          <e p="ValidationDetails.cs" t="Include" />
         </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
+        <e p="Validators" t="Include">
+          <e p="ShortBankInfoDtoValidator.cs" t="Include" />
+        </e>
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
