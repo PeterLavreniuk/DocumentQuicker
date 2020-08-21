@@ -10,6 +10,14 @@
           <e p="BankInfoController.cs" t="Include" />
         </e>
         <e p="DocumentQuicker.Api.csproj" t="IncludeRecursive" />
+        <e p="MapperProfiles" t="Include">
+          <e p="BlToDto.cs" t="Include" />
+          <e p="DtoToBl.cs" t="Include" />
+        </e>
+        <e p="Models" t="Include">
+          <e p="BankInfoDto.cs" t="Include" />
+          <e p="ShortBankInfoDto.cs" t="Include" />
+        </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />

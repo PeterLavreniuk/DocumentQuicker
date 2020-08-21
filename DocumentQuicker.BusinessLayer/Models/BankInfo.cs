@@ -7,22 +7,22 @@ namespace DocumentQuicker.BusinessLayer.Models
         /// <summary>
         /// bank city, name of the bank etc.
         /// </summary>
-        public string BankDescription { get; }
+        public string Description { get; }
         public string Bic { get; }
         public string CorrAccount { get; }
 
-        public BankInfo(string bankDescription,
-                           string bic,
-                           string corrAccount,
-                           Guid id, 
-                           DateTime creationDate, 
-                           DateTime editDate, 
-                           bool isActive) : base(id, 
-                                                 creationDate, 
-                                                 editDate, 
-                                                 isActive)
+        public BankInfo(string description,
+                        string bic,
+                        string corrAccount,
+                        Guid id, 
+                        DateTime creationDate, 
+                        DateTime editDate, 
+                        bool isActive) : base(id, 
+                                              creationDate, 
+                                              editDate, 
+                                              isActive)
         {
-            BankDescription = bankDescription;
+            Description = description;
             Bic = bic;
             CorrAccount = corrAccount;
         }

@@ -1,14 +1,14 @@
 using AutoMapper;
+using DocumentQuicker.Api.Models;
 using DocumentQuicker.BusinessLayer.Models;
-using DocumentQuicker.DataProvider.Models;
 
-namespace DocumentQuicker.BusinessLayer.MapperProfiles
+namespace DocumentQuicker.Api.MapperProfiles
 {
-    public class BlToDataProvider : Profile
+    public class BlToDto : Profile
     {
-        public BlToDataProvider()
+        public BlToDto()
         {
-            CreateMap<BankInfo, BankInfoEf>()
+            CreateMap<BankInfo, BankInfoDto>()
                 .ForMember(
                     dest => dest.Id,
                     opt => opt.MapFrom(scr => scr.Id))
@@ -16,7 +16,7 @@ namespace DocumentQuicker.BusinessLayer.MapperProfiles
                     dest => dest.Bic,
                     opt => opt.MapFrom(scr => scr.Bic))
                 .ForMember(
-                    dest => dest.BankDescription,
+                    dest => dest.Description,
                     opt => opt.MapFrom(scr => scr.Description))
                 .ForMember(
                     dest => dest.CorrAccount,

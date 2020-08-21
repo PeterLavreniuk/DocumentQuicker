@@ -10,7 +10,7 @@ namespace DocumentQuicker.BusinessLayer.MapperProfiles
         {
             CreateMap<BankInfoEf, BankInfo>()
                 .ConstructUsing((x,ctx) => new BankInfo(id: x.Id,
-                                                                                      bankDescription: x.BankDescription,
+                                                                                      description: x.BankDescription,
                                                                                       bic: x.Bic,
                                                                                       creationDate: x.CreationDate,
                                                                                       editDate: x.EditDate,

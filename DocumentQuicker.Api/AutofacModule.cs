@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Autofac;
 using AutoMapper;
+using DocumentQuicker.Api.MapperProfiles;
 using DocumentQuicker.BusinessLayer;
 using DocumentQuicker.DataProvider;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,12 @@ namespace DocumentQuicker.Api
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterModule(new DocumentQuickerBlModule());
+            
+            builder.RegisterType<BlToDto>()
+                .As<Profile>();
+            
+            builder.RegisterType<DtoToBl>()
+                .As<Profile>();
 
             builder.Register(c => new MapperConfiguration(cfg =>
             {

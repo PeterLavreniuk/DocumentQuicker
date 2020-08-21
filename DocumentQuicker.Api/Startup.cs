@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace DocumentQuicker.Api
 {
@@ -24,6 +26,26 @@ namespace DocumentQuicker.Api
         {
             services.AddControllers();
             services.AddOptions();
+            services.AddSwaggerGen(x =>
+            {
+                x.SwaggerDoc("v1", new OpenApiInfo()
+                {
+                    Version = "v1",
+                    Title = "DocumentQuicker api",
+                    Description = "Lightweight document management system.",
+                    Contact = new OpenApiContact()
+                    {
+                        Name = "Peter Lavreniuk",
+                        Email = "peter.lavreniuk@gmail.com",
+                        Url = new Uri("https://github.com/PeterLavreniuk")
+                    },
+                    License = new OpenApiLicense()
+                    {
+                        Name = "Use under GNU GPL v2.0",
+                        Url = new Uri("https://github.com/PeterLavreniuk/DocumentQuicker/blob/master/LICENSE")
+                    }
+                });
+            });
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -38,6 +60,14 @@ namespace DocumentQuicker.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(x =>
+            {
+                x.SwaggerEndpoint("/swagger/v1/swagger.json", "DocumentQuicker api v1.");
+                x.RoutePrefix = string.Empty;
+            });
 
             AutofacContainer = app.ApplicationServices.GetAutofacRoot();
 

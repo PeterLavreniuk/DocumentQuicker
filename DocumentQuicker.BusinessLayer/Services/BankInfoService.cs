@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DocumentQuicker.BusinessLayer.Interfaces;
 using DocumentQuicker.BusinessLayer.Models;
 using DocumentQuicker.DataProvider;
 using DocumentQuicker.DataProvider.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DocumentQuicker.BusinessLayer.Services
 {
@@ -22,43 +24,64 @@ namespace DocumentQuicker.BusinessLayer.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));
         }
 
-        public async Task<BankInfo> Create(string description, string bic, string corrAccount)
+        public async Task<BankInfo> Create(BankInfo bankInfo)
         {
-            var bankInfoEf = new BankInfoEf()
-            {
-                BankDescription = description,
-                Bic = bic,
-                CorrAccount = corrAccount
-            };
+            var bankInfoEf = _mapper.Map<BankInfoEf>(bankInfo);
             await _documentQuickerContext.BankInfos.AddAsync(bankInfoEf);
             await _documentQuickerContext.SaveChangesAsync();
 
             return _mapper.Map<BankInfo>(bankInfoEf);
         }
 
-        public Task<BankInfo> Edit(BankInfo info)
+        public async Task<BankInfo> Update(BankInfo bankInfo)
         {
-            throw new NotImplementedException();
+            var bankInfoEf = await _documentQuickerContext.BankInfos.FirstOrDefaultAsync(x => x.Id == bankInfo.Id);
+            if(bankInfoEf == null)
+                throw new KeyNotFoundException($"Entity with : {bankInfo.Id} not found");
+
+            bankInfoEf.BankDescription = bankInfo.Description;
+            bankInfoEf.Bic = bankInfo.Bic;
+            bankInfoEf.CorrAccount = bankInfo.CorrAccount;
+
+            _documentQuickerContext.BankInfos.Update(bankInfoEf);
+            await _documentQuickerContext.SaveChangesAsync();
+            
+            return _mapper.Map<BankInfo>(bankInfoEf);
         }
 
-        public Task<IList<BankInfo>> Get()
+        public async Task<IList<BankInfo>> Get()
         {
-            throw new NotImplementedException();
+            var result = await _documentQuickerContext.BankInfos.Where(x => x.IsActive)
+                .OrderByDescending(x => x.EditDate).ToListAsync();
+
+            return result.Select(x => _mapper.Map<BankInfo>(x)).ToList();
         }
 
-        public Task<IList<BankInfo>> Get(int count, int offset)
+        public async Task<IList<BankInfo>> Get(int count, int offset)
         {
-            throw new NotImplementedException();
+            var result = await _documentQuickerContext.BankInfos.Where(x => x.IsActive)
+                .OrderByDescending(x => x.EditDate).Skip(offset).Take(count).ToListAsync();
+            
+            return result.Select(x => _mapper.Map<BankInfo>(x)).ToList();
         }
 
-        public Task<BankInfo> Get(Guid id)
+        public async Task<BankInfo> Get(Guid id)
         {
-            throw new NotImplementedException();
+            var bankInfo = await _documentQuickerContext.BankInfos.FirstOrDefaultAsync(x => x.Id == id && x.IsActive);
+            if (bankInfo == null)
+                throw new KeyNotFoundException($"Entity with : {id} not found");
+
+            return _mapper.Map<BankInfo>(bankInfo);
         }
 
-        public Task<bool> Delete(Guid id)
+        public async Task<bool> Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var bankInfo = await _documentQuickerContext.BankInfos.FirstOrDefaultAsync(x => x.Id == id);
+            if (bankInfo == null)
+                throw new KeyNotFoundException($"Entity with : {id} not found");
+            _documentQuickerContext.BankInfos.Remove(bankInfo);
+            await _documentQuickerContext.SaveChangesAsync();
+            return true;
         }
     }
 }
