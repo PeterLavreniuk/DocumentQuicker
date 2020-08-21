@@ -14,4 +14,4 @@ The web API and web interface are currently under development.
 * **Peter Lavreniuk** - [PeterLavreniuk](https://github.com/PeterLavreniuk)
 
 ## License
-DocumentQuicker is licensed under the GNU GPL-2.0 License - see the [LICENSE.md](LICENSE.md) file for details
+DocumentQuicker is licensed under the GNU GPL-2.0 License - see the [LICENSE.md](https://github.com/PeterLavreniuk/DocumentQuicker/blob/master/LICENSE) file for details
