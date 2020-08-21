@@ -1,7 +1,7 @@
 # DocumentQuicker
 Lightweight document management system. Web api.
 
-##Description
+## Description
 The web API and web interface are currently under development.
 
 ## Why?
