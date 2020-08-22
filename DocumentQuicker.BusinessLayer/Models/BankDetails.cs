@@ -2,7 +2,7 @@ using System;
 
 namespace DocumentQuicker.BusinessLayer.Models
 {
-    public class BankDetails : EntityBase
+    public sealed class BankDetails : EntityBase
     {
         public string Account { get; }
         public BankDetails Info { get; }

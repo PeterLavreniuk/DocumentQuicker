@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentQuicker.BusinessLayer.Services
 {
-    public class BankInfoService : IBankInfoService
+    internal class BankInfoService : IBankInfoService
     {
         private readonly DocumentQuickerContext _documentQuickerContext;
         private readonly IMapper _mapper;

@@ -10,6 +10,12 @@
           <e p="BankInfoController.cs" t="Include" />
         </e>
         <e p="DocumentQuicker.Api.csproj" t="IncludeRecursive" />
+        <e p="Extensions" t="Include">
+          <e p="ValidationResultEx.cs" t="Include" />
+        </e>
+        <e p="Interfaces" t="Include">
+          <e p="IValidationDecorator.cs" t="Include" />
+        </e>
         <e p="MapperProfiles" t="Include">
           <e p="BlToDto.cs" t="Include" />
           <e p="DtoToBl.cs" t="Include" />
@@ -22,6 +28,10 @@
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Services" t="Include">
+          <e p="ValidationDecorator.cs" t="Include" />
+          <e p="ValidationDecoratorConfig.cs" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="Validators" t="Include">

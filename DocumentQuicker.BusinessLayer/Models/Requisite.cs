@@ -2,7 +2,7 @@ using System;
 
 namespace DocumentQuicker.BusinessLayer.Models
 {
-    public class Requisite : EntityBase
+    public sealed class Requisite : EntityBase
     {
         public Address Address { get; }
         public BankDetails BankDetails { get; }

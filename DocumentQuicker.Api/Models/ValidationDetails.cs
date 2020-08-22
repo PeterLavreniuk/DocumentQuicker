@@ -1,6 +1,6 @@
 namespace DocumentQuicker.Api.Models
 {
-    public class ValidationDetails
+    public sealed class ValidationDetails
     {
         public string PropertyName { get; set; }
         public string ErrorMessage { get; set; }

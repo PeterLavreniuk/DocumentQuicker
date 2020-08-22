@@ -1,34 +1,32 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using DocumentQuicker.Api.Extensions;
+using DocumentQuicker.Api.Interfaces;
 using DocumentQuicker.Api.Models;
-using DocumentQuicker.Api.Validators;
 using DocumentQuicker.BusinessLayer.Interfaces;
 using DocumentQuicker.BusinessLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace DocumentQuicker.Api.Controllers
 {
     [Route("api/v1/BankInfo")]
     [ApiController]
-    public class BankInfoController : ControllerBase
+    public sealed class BankInfoController : ControllerBase
     {
-        private readonly ShortBankInfoDtoValidator _shortBankInfoDtoValidator;
+        private readonly IValidationDecorator _validationDecorator;
         private readonly IBankInfoService _bankInfoService;
         private readonly IMapper _mapper;
 
         public BankInfoController(IBankInfoService bankInfoService,
-                                  ShortBankInfoDtoValidator shortBankInfoDtoValidator,
+                                  IValidationDecorator validationDecorator,
                                   IMapper mapper)
         {
             _bankInfoService = bankInfoService ?? throw new ArgumentNullException(nameof(_bankInfoService));
-            _shortBankInfoDtoValidator = shortBankInfoDtoValidator ??
-                                         throw new ArgumentNullException(nameof(_shortBankInfoDtoValidator));
+            _validationDecorator = validationDecorator ?? throw new ArgumentNullException(nameof(_validationDecorator));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));
         }
         
@@ -40,17 +38,11 @@ namespace DocumentQuicker.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<BankInfoDto>> Create(ShortBankInfoDto bankInfo)
         {
-            var validation = await _shortBankInfoDtoValidator.ValidateAsync(bankInfo);
+            var validation = await _validationDecorator.ValidateAsync(bankInfo);
+
             if (!validation.IsValid)
             {
-                var details = validation.Errors.Select(x => new ValidationDetails()
-                {
-                    AttemptedValue = x.AttemptedValue == null ? "null" : x.AttemptedValue.ToString(),
-                    ErrorMessage = x.ErrorMessage,
-                    PropertyName = x.PropertyName
-                }).ToList();
-                
-                return BadRequest(details);
+                return BadRequest(validation.GetValidationDetails());
             }
 
             try
@@ -74,17 +66,10 @@ namespace DocumentQuicker.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<BankInfoDto>> Update(Guid id,[FromBody] ShortBankInfoDto shortBankInfoDto)
         {
-            var validation = await _shortBankInfoDtoValidator.ValidateAsync(shortBankInfoDto);
+            var validation = await _validationDecorator.ValidateAsync(shortBankInfoDto);
             if (!validation.IsValid)
             {
-                var details = validation.Errors.Select(x => new ValidationDetails()
-                {
-                    AttemptedValue = x.AttemptedValue == null ? "null" : x.AttemptedValue.ToString(),
-                    ErrorMessage = x.ErrorMessage,
-                    PropertyName = x.PropertyName
-                }).ToList();
-                
-                return BadRequest(details);
+                return BadRequest(validation.GetValidationDetails());
             }
             
             var bankInfo = new BankInfo(description: shortBankInfoDto.Description,
@@ -142,7 +127,7 @@ namespace DocumentQuicker.Api.Controllers
         {
             try
             {
-                return Ok(await _bankInfoService.Get(id));
+                return Ok(_mapper.Map<BankInfoDto>(await _bankInfoService.Get(id)));
             }
             catch (KeyNotFoundException)
             {

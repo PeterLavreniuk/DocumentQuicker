@@ -4,7 +4,7 @@ using DocumentQuicker.DataProvider.Models;
 
 namespace DocumentQuicker.BusinessLayer.MapperProfiles
 {
-    public class DataProviderToBL : Profile
+    public sealed class DataProviderToBL : Profile
     {
         public DataProviderToBL()
         {

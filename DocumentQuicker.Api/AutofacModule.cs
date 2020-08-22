@@ -1,50 +1,47 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Autofac;
 using AutoMapper;
-using DocumentQuicker.Api.MapperProfiles;
+using DocumentQuicker.Api.Interfaces;
+using DocumentQuicker.Api.Services;
 using DocumentQuicker.Api.Validators;
 using DocumentQuicker.BusinessLayer;
 using DocumentQuicker.DataProvider;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
+using Module = Autofac.Module;
 
 namespace DocumentQuicker.Api
 {
-    public class AutofacModule : Module
+    public sealed class AutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterModule(new DocumentQuickerBlModule());
             
-            //TODO find the best way to register mapper profiles. 
-            builder.RegisterType<BlToDto>()
-                .As<Profile>();
-            builder.RegisterType<DtoToBl>()
-                .As<Profile>();
-            builder.Register(c => new MapperConfiguration(cfg =>
-            {
-                foreach (var profile in c.Resolve<IEnumerable<Profile>>())
+            builder.Register(c =>
                 {
-                    cfg.AddProfile(profile);
-                }
-            })).AsSelf().SingleInstance();
+                    var cfg = new ValidationDecoratorConfig();
+                    cfg.AddValidator(new ShortBankInfoDtoValidator());
+                    cfg.AddValidators(Assembly.GetExecutingAssembly());
+                    return new ValidationDecorator(cfg);
+                })
+                .As<IValidationDecorator>()
+                .SingleInstance();
 
-            //TODO find the best way to register validators. 
-            //TODO decorate validators. Sure I can to inject some validators in the controller. But the decorator pattern is preferred.
-            builder.RegisterType<ShortBankInfoDtoValidator>()
-                .AsSelf()
-                .InstancePerLifetimeScope();
-            
-            builder.Register(c => c.Resolve<MapperConfiguration>()
+            builder.Register(c => new MapperConfiguration(cfg =>
+                {
+                    cfg.AddMaps(Assembly.GetExecutingAssembly());
+                    cfg.AddMaps(Assembly.GetAssembly(typeof(DocumentQuickerBlModule)));
+                })
                 .CreateMapper(c.Resolve))
                 .As<IMapper>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
             
             builder.Register(c =>
                 {
-                    var serviceProvider = c.Resolve<IServiceProvider>();
                     var configuration = c.Resolve<IConfiguration>();
                     var dbContextOptions = new DbContextOptions<DocumentQuickerContext>(new Dictionary<Type, IDbContextOptionsExtension>());
                     var optionsBuilder = new DbContextOptionsBuilder<DocumentQuickerContext>(dbContextOptions);

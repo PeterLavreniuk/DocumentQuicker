@@ -2,7 +2,7 @@ using System;
 
 namespace DocumentQuicker.BusinessLayer.Models
 {
-    public class Address : EntityBase
+    public sealed class Address : EntityBase
     {
         public string City { get; }
         /// <summary>

@@ -5,7 +5,7 @@ using DocumentQuicker.BusinessLayer.Models;
 
 namespace DocumentQuicker.Api.MapperProfiles
 {
-    public class DtoToBl : Profile
+    public sealed class DtoToBl : Profile
     {
         public DtoToBl()
         {

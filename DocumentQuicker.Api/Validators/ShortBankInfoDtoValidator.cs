@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DocumentQuicker.Api.Validators
 {
-    public class ShortBankInfoDtoValidator : AbstractValidator<ShortBankInfoDto>
+    public sealed class ShortBankInfoDtoValidator : AbstractValidator<ShortBankInfoDto>
     {
         public ShortBankInfoDtoValidator()
         {
