@@ -60,6 +60,8 @@ namespace DocumentQuicker.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(b => b.AllowAnyOrigin());
+
             app.UseSwagger();
 
             app.UseSwaggerUI(x =>
