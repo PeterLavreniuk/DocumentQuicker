@@ -1,8 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DocumentQuicker.DataProvider.Models
 {
+    //todo set attributes to the properties
     public class BankInfoEf : IBaseEntity
     {
         [Key]
@@ -15,6 +17,8 @@ namespace DocumentQuicker.DataProvider.Models
         public string CorrAccount { get; set; }
         [Required]
         public bool IsActive { get; set; }
+        [NotMapped] 
+        public EntityType Type => EntityType.BankInfoEntity;
         public DateTime CreationDate { get; set; }
         public DateTime EditDate { get; set; }
     }

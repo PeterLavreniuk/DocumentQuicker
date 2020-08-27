@@ -8,5 +8,6 @@ namespace DocumentQuicker.DataProvider.Models
         DateTime CreationDate { get; set; }
         DateTime EditDate { get; set; }
         bool IsActive { get; set; }
+        EntityType Type { get; }
     }
 }
