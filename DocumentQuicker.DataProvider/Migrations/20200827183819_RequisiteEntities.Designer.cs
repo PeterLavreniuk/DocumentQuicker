@@ -3,14 +3,16 @@ using System;
 using DocumentQuicker.DataProvider;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DocumentQuicker.DataProvider.Migrations
 {
     [DbContext(typeof(DocumentQuickerContext))]
-    partial class DocumentQuickerContextModelSnapshot : ModelSnapshot
+    [Migration("20200827183819_RequisiteEntities")]
+    partial class RequisiteEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

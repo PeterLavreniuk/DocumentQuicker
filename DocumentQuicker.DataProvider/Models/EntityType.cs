@@ -2,6 +2,9 @@ namespace DocumentQuicker.DataProvider.Models
 {
     public enum EntityType
     {
-        BankInfoEntity
+        BankInfoEntity,
+        RequisiteEntity,
+        AddressEntity,
+        BankDetailsEntity
     }
 }

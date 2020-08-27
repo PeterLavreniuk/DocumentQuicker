@@ -86,11 +86,21 @@
         <e p="Migrations" t="Include">
           <e p="20200820153156_InitialCreate.Designer.cs" t="Include" />
           <e p="20200820153156_InitialCreate.cs" t="Include" />
+          <e p="20200824164740_DatabaseAudit.Designer.cs" t="Include" />
+          <e p="20200824164740_DatabaseAudit.cs" t="Include" />
+          <e p="20200827183819_RequisiteEntities.Designer.cs" t="Include" />
+          <e p="20200827183819_RequisiteEntities.cs" t="Include" />
           <e p="DocumentQuickerContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
+          <e p="AddressEf.cs" t="Include" />
+          <e p="AuditActionType.cs" t="Include" />
+          <e p="AuditEf.cs" t="Include" />
+          <e p="BankDetailsEf.cs" t="Include" />
           <e p="BankInfoEf.cs" t="Include" />
+          <e p="EntityType.cs" t="Include" />
           <e p="IBaseEntity.cs" t="Include" />
+          <e p="RequisiteEf.cs" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">

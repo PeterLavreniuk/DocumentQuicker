@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DocumentQuicker.DataProvider.Models
 {
-    //todo set attributes to the properties
+    //todo set attributes for properties
+    //todo rename?
     public class BankInfoEf : IBaseEntity
     {
         [Key]

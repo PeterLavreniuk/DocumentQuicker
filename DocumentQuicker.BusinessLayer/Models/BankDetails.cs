@@ -5,10 +5,10 @@ namespace DocumentQuicker.BusinessLayer.Models
     public sealed class BankDetails : EntityBase
     {
         public string Account { get; }
-        public BankDetails Info { get; }
+        public BankInfo Info { get; }
 
         public BankDetails(string account, 
-                           BankDetails info,
+                           BankInfo info,
                            Guid id, 
                            DateTime creationDate, 
                            DateTime editDate, 
