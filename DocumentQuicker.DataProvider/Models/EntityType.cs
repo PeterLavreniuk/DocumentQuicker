@@ -5,6 +5,7 @@ namespace DocumentQuicker.DataProvider.Models
         BankInfoEntity,
         RequisiteEntity,
         AddressEntity,
-        BankDetailsEntity
+        BankDetailsEntity,
+        UserProfileEntity
     }
 }

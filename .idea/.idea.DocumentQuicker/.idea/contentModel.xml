@@ -7,6 +7,7 @@
       <e p="DocumentQuicker.Api" t="IncludeRecursive">
         <e p="AutofacModule.cs" t="Include" />
         <e p="Controllers" t="Include">
+          <e p="AuthenticationController.cs" t="Include" />
           <e p="BankInfoController.cs" t="Include" />
         </e>
         <e p="DocumentQuicker.Api.csproj" t="IncludeRecursive" />
@@ -21,6 +22,8 @@
           <e p="DtoToBl.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
+          <e p="AuthenticateRequest.cs" t="Include" />
+          <e p="AuthenticateResponse.cs" t="Include" />
           <e p="BankInfoDto.cs" t="Include" />
           <e p="ShortBankInfoDto.cs" t="Include" />
           <e p="ValidationDetails.cs" t="Include" />
@@ -90,6 +93,8 @@
           <e p="20200824164740_DatabaseAudit.cs" t="Include" />
           <e p="20200827183819_RequisiteEntities.Designer.cs" t="Include" />
           <e p="20200827183819_RequisiteEntities.cs" t="Include" />
+          <e p="20200828192220_UserCredentials.Designer.cs" t="Include" />
+          <e p="20200828192220_UserCredentials.cs" t="Include" />
           <e p="DocumentQuickerContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
@@ -101,6 +106,8 @@
           <e p="EntityType.cs" t="Include" />
           <e p="IBaseEntity.cs" t="Include" />
           <e p="RequisiteEf.cs" t="Include" />
+          <e p="UserCredentialsEf.cs" t="Include" />
+          <e p="UserProfileEf.cs" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
