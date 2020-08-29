@@ -1,17 +1,33 @@
 # DocumentQuicker
-Lightweight document management system. Web api.
+Легковесная система документооборота. 
 
-## Description
-The web API and web interface are currently under development.
+## Важно!
+В данный момент api и web ui находятся в активной разработке. Пишу я один в свободное от работы время.
 
-## Why?
-- It is cool to have your own project.
-- Practice of technologies and methodologies.
-- My friends have a small business, and they are tired of looking for useful document system.
-- I have a raspberry pi. I want to practice deploing .net web api under Linux.
+### Зачем?
+- Это круто иметь свой собственный домашний проект.
+- Практика методологий и технологий.
+- Некоторые из моих друзей/знакомых имеют свой маленький бизнес. У них есть потребность в системе документооборота. Возможно она им понравиться и они ее будут использовать.
+- У меня есть Rasbperry Pi! И это было бы круто развернуть попробовать развернуть на ней .net core сервис.
+- Изучение vue.js, именно его я использую в качестве фреймворка для web ui.
 
-## Authors
+### Планы на релиз 1.0
+ - Создание/редактирование банковских реквизитов.
+ - Создание/редактирование реквизитов исполнителей/заказчиков, связь с банковскими реквизитами.
+ - Создание/редактирование актов/счетов-фактур, связь с реквизитами исполнителей и заказчиков.
+ - Создание/редактирование бандлов документов, связь бандла с его актом и счетом-фактуры.
+ - Акт/счет-фактуры в рамках бандла могут иметь как общие так и уникальные элементы.
+ - Аудирование изменений каждого документа.
+ - Сносный дезигн web ui.
+ 
+#### Возможно что будет в релизе 1.0
+- Конструктор формы акта/счета-фактуры.
+- Создание/редактирование заявок. Связь с реквизитами исполнителей и заказчиков.
+- Конструктор формы заявок.
+- Связь заявки с актом/счетом-фактуры.
+
+## Авторы
 * **Peter Lavreniuk** - [PeterLavreniuk](https://github.com/PeterLavreniuk)
 
-## License
-DocumentQuicker is licensed under the GNU GPL-2.0 License - see the [LICENSE.md](https://github.com/PeterLavreniuk/DocumentQuicker/blob/master/LICENSE) file for details
+## Лицензирование
+GNU GPL-2.0 License - see the [LICENSE.md](https://github.com/PeterLavreniuk/DocumentQuicker/blob/master/LICENSE) file for details
