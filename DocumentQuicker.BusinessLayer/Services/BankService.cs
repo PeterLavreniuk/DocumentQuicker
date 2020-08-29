@@ -11,12 +11,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentQuicker.BusinessLayer.Services
 {
-    internal class BankInfoService : IBankInfoService
+    internal class BankService : IBankService
     {
         private readonly DocumentQuickerContext _documentQuickerContext;
         private readonly IMapper _mapper;
 
-        public BankInfoService(DocumentQuickerContext documentQuickerContext,
+        public BankService(DocumentQuickerContext documentQuickerContext,
                                IMapper mapper)
         {
             _documentQuickerContext = documentQuickerContext ??
@@ -24,16 +24,16 @@ namespace DocumentQuicker.BusinessLayer.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));
         }
 
-        public async Task<BankInfo> Create(BankInfo bankInfo)
+        public async Task<Bank> Create(Bank bankInfo)
         {
-            var bankInfoEf = _mapper.Map<BankInfoEf>(bankInfo);
+            var bankInfoEf = _mapper.Map<BankEf>(bankInfo);
             await _documentQuickerContext.BankInfos.AddAsync(bankInfoEf);
             await _documentQuickerContext.SaveChangesAsync();
 
-            return _mapper.Map<BankInfo>(bankInfoEf);
+            return _mapper.Map<Bank>(bankInfoEf);
         }
 
-        public async Task<BankInfo> Update(BankInfo bankInfo)
+        public async Task<Bank> Update(Bank bankInfo)
         {
             var bankInfoEf = await _documentQuickerContext.BankInfos.FirstOrDefaultAsync(x => x.Id == bankInfo.Id);
             if(bankInfoEf == null)
@@ -46,32 +46,32 @@ namespace DocumentQuicker.BusinessLayer.Services
             _documentQuickerContext.BankInfos.Update(bankInfoEf);
             await _documentQuickerContext.SaveChangesAsync();
             
-            return _mapper.Map<BankInfo>(bankInfoEf);
+            return _mapper.Map<Bank>(bankInfoEf);
         }
 
-        public async Task<IList<BankInfo>> Get()
+        public async Task<IList<Bank>> Get()
         {
             var result = await _documentQuickerContext.BankInfos.Where(x => x.IsActive)
                 .OrderByDescending(x => x.EditDate).ToListAsync();
 
-            return result.Select(x => _mapper.Map<BankInfo>(x)).ToList();
+            return result.Select(x => _mapper.Map<Bank>(x)).ToList();
         }
 
-        public async Task<IList<BankInfo>> Get(int count, int offset)
+        public async Task<IList<Bank>> Get(int count, int offset)
         {
             var result = await _documentQuickerContext.BankInfos.Where(x => x.IsActive)
                 .OrderByDescending(x => x.EditDate).Skip(offset).Take(count).ToListAsync();
             
-            return result.Select(x => _mapper.Map<BankInfo>(x)).ToList();
+            return result.Select(x => _mapper.Map<Bank>(x)).ToList();
         }
 
-        public async Task<BankInfo> Get(Guid id)
+        public async Task<Bank> Get(Guid id)
         {
             var bankInfo = await _documentQuickerContext.BankInfos.FirstOrDefaultAsync(x => x.Id == id && x.IsActive);
             if (bankInfo == null)
                 throw new KeyNotFoundException($"Entity with : {id} not found");
 
-            return _mapper.Map<BankInfo>(bankInfo);
+            return _mapper.Map<Bank>(bankInfo);
         }
 
         public async Task<bool> Delete(Guid id)

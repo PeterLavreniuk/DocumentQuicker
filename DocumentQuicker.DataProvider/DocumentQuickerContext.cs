@@ -10,11 +10,9 @@ namespace DocumentQuicker.DataProvider
 {
     public class DocumentQuickerContext : DbContext
     {
-        public DbSet<BankInfoEf> BankInfos { get; set; }
+        public DbSet<BankEf> BankInfos { get; set; }
         public DbSet<AuditEf> DatabaseAudits { get; set; }
         public DbSet<RequisiteEf> Requisites { get; set; }
-        public DbSet<AddressEf> Addresses { get; set; }
-        public DbSet<BankDetailsEf> BankDetails { get; set; }
         public DbSet<UserCredentialsEf> UserCredentials { get; set; }
         public DbSet<UserProfileEf> UserProfiles { get; set; }
 

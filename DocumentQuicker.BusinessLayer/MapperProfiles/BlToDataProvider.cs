@@ -8,7 +8,7 @@ namespace DocumentQuicker.BusinessLayer.MapperProfiles
     {
         public BlToDataProvider()
         {
-            CreateMap<BankInfo, BankInfoEf>()
+            CreateMap<Bank, BankEf>()
                 .ForMember(
                     dest => dest.Id,
                     opt => opt.MapFrom(scr => scr.Id))

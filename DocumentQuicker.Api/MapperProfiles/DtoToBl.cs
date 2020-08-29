@@ -9,14 +9,15 @@ namespace DocumentQuicker.Api.MapperProfiles
     {
         public DtoToBl()
         {
-            CreateMap<ShortBankInfoDto, BankInfo>()
-                .ConstructUsing((x, ctx) => new BankInfo(description: x.Description,
-                                                                                            bic: x.Bic,
-                                                                                            corrAccount: x.CorrAccount,
-                                                                                            id: Guid.Empty,
-                                                                                            creationDate: DateTime.MinValue,
-                                                                                            editDate: DateTime.MinValue,
-                                                                                            isActive: true));
+            CreateMap<ShortBankInfoDto, Bank>()
+                .ConstructUsing((x, ctx) => 
+                    new Bank(description: x.Description,
+                             bic: x.Bic,
+                             corrAccount: x.CorrAccount,
+                             id: Guid.Empty,
+                             creationDate: DateTime.MinValue,
+                             editDate: DateTime.MinValue,
+                             isActive: true));
         }
     }
 }

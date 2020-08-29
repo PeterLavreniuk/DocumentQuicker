@@ -3,6 +3,7 @@
   <component name="ContentModelStore">
     <e p="$USER_HOME$/.cache/JetBrains/Rider2020.2/extResources" t="IncludeRecursive" />
     <e p="$USER_HOME$/.cache/JetBrains/Rider2020.2/resharper-host/local/Transient/Rider/v202/SolutionCaches/_DocumentQuicker.-768529987.00" t="ExcludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/scratches" t="IncludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="DocumentQuicker.Api" t="IncludeRecursive">
         <e p="AutofacModule.cs" t="Include" />
@@ -55,7 +56,7 @@
         <e p="DocumentQuicker.BusinessLayer.csproj" t="IncludeRecursive" />
         <e p="DocumentQuickerBlModule.cs" t="Include" />
         <e p="Interfaces" t="Include">
-          <e p="IBankInfoService.cs" t="Include" />
+          <e p="IBankService.cs" t="Include" />
           <e p="IRequisiteService.cs" t="Include" />
         </e>
         <e p="MapperProfiles" t="Include">
@@ -63,14 +64,12 @@
           <e p="DataProviderToBL.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
-          <e p="Address.cs" t="Include" />
-          <e p="BankDetails.cs" t="Include" />
-          <e p="BankInfo.cs" t="Include" />
+          <e p="Bank.cs" t="Include" />
           <e p="EntityBase.cs" t="Include" />
           <e p="Requisite.cs" t="Include" />
         </e>
         <e p="Services" t="Include">
-          <e p="BankInfoService.cs" t="Include" />
+          <e p="BankService.cs" t="Include" />
           <e p="RequisiteService.cs" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />
@@ -87,22 +86,14 @@
         <e p="DocumentQuickerContext.cs" t="Include" />
         <e p="DocumentQuickerContextFactory.cs" t="Include" />
         <e p="Migrations" t="Include">
-          <e p="20200820153156_InitialCreate.Designer.cs" t="Include" />
-          <e p="20200820153156_InitialCreate.cs" t="Include" />
-          <e p="20200824164740_DatabaseAudit.Designer.cs" t="Include" />
-          <e p="20200824164740_DatabaseAudit.cs" t="Include" />
-          <e p="20200827183819_RequisiteEntities.Designer.cs" t="Include" />
-          <e p="20200827183819_RequisiteEntities.cs" t="Include" />
-          <e p="20200828192220_UserCredentials.Designer.cs" t="Include" />
-          <e p="20200828192220_UserCredentials.cs" t="Include" />
+          <e p="20200829200159_Initial.Designer.cs" t="Include" />
+          <e p="20200829200159_Initial.cs" t="Include" />
           <e p="DocumentQuickerContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
-          <e p="AddressEf.cs" t="Include" />
           <e p="AuditActionType.cs" t="Include" />
           <e p="AuditEf.cs" t="Include" />
-          <e p="BankDetailsEf.cs" t="Include" />
-          <e p="BankInfoEf.cs" t="Include" />
+          <e p="BankEfcs.cs" t="Include" />
           <e p="EntityType.cs" t="Include" />
           <e p="IBaseEntity.cs" t="Include" />
           <e p="RequisiteEf.cs" t="Include" />

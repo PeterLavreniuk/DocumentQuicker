@@ -4,20 +4,23 @@ namespace DocumentQuicker.BusinessLayer.Models
 {
     public sealed class Requisite : EntityBase
     {
-        public Address Address { get; }
-        public BankDetails BankDetails { get; }
         public string Name { get; }
         // ReSharper disable once InconsistentNaming
         public string INN { get; }
         // ReSharper disable once InconsistentNaming
         public string KPP { get; }
-        
+        public string City { get; }
+        public string RawAddress { get; }        
+        public string BankAccount { get; }
+        public Bank Bank { get; }
 
-        public Requisite(Address address,
-                         BankDetails bankDetails,
-                         string name,
+        public Requisite(string name,
                          string inn,
                          string kpp,
+                         string city,
+                         string rawAddress,
+                         string bankAccount,
+                         Bank bank,
                          Guid id, 
                          DateTime creationDate, 
                          DateTime editDate,
@@ -26,11 +29,13 @@ namespace DocumentQuicker.BusinessLayer.Models
                                                editDate,
                                                isActive)
         {
-            Address = address ?? throw new ArgumentNullException(nameof(Address));
-            BankDetails = bankDetails ?? throw new ArgumentNullException(nameof(BankDetails));
             Name = name;
             INN = inn;
             KPP = kpp;
+            City = city;
+            RawAddress = rawAddress;
+            BankAccount = bankAccount;
+            Bank = bank ?? throw new ArgumentNullException(nameof(bank));
         }
     }
 }

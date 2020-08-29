@@ -8,8 +8,8 @@ namespace DocumentQuicker.BusinessLayer
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<BankInfoService>()
-                .As<IBankInfoService>()
+            builder.RegisterType<BankService>()
+                .As<IBankService>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<RequisiteService>()
                 .As<IRequisiteService>()

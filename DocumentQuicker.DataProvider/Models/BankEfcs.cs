@@ -6,7 +6,8 @@ namespace DocumentQuicker.DataProvider.Models
 {
     //todo set attributes for properties
     //todo rename?
-    public class BankInfoEf : IBaseEntity
+    [Table("Banks")]
+    public class BankEf : IBaseEntity
     {
         [Key]
         public Guid Id { get; set; }
@@ -19,7 +20,7 @@ namespace DocumentQuicker.DataProvider.Models
         [Required]
         public bool IsActive { get; set; }
         [NotMapped] 
-        public EntityType Type => EntityType.BankInfoEntity;
+        public EntityType Type => EntityType.BankEntity;
         public DateTime CreationDate { get; set; }
         public DateTime EditDate { get; set; }
     }

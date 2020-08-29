@@ -18,10 +18,10 @@ namespace DocumentQuicker.Api.Controllers
     public sealed class BankInfoController : ControllerBase
     {
         private readonly IValidationDecorator _validationDecorator;
-        private readonly IBankInfoService _bankInfoService;
+        private readonly IBankService _bankInfoService;
         private readonly IMapper _mapper;
 
-        public BankInfoController(IBankInfoService bankInfoService,
+        public BankInfoController(IBankService bankInfoService,
                                   IValidationDecorator validationDecorator,
                                   IMapper mapper)
         {
@@ -47,7 +47,7 @@ namespace DocumentQuicker.Api.Controllers
 
             try
             {
-                var result = await _bankInfoService.Create(_mapper.Map<BankInfo>(bankInfo));
+                var result = await _bankInfoService.Create(_mapper.Map<Bank>(bankInfo));
                 return Ok(_mapper.Map<BankInfoDto>(result));
             }
             //TODO append error handler middleware. Also append logging!
@@ -71,14 +71,14 @@ namespace DocumentQuicker.Api.Controllers
             {
                 return BadRequest(validation.GetValidationDetails());
             }
-            
-            var bankInfo = new BankInfo(description: shortBankInfoDto.Description,
-                                        bic: shortBankInfoDto.Bic,
-                                        corrAccount: shortBankInfoDto.CorrAccount,
-                                        id: id,
-                                        creationDate: DateTime.MinValue,
-                                        editDate: DateTime.MinValue,
-                                        isActive: true);
+
+            var bankInfo = new Bank(description: shortBankInfoDto.Description,
+                                    bic: shortBankInfoDto.Bic,
+                                    corrAccount: shortBankInfoDto.CorrAccount,
+                                    id: id,
+                                    creationDate: DateTime.MinValue,
+                                    editDate: DateTime.MinValue,
+                                    isActive: true);
 
             try
             {
