@@ -12,6 +12,7 @@ namespace DocumentQuicker.BusinessLayer.Models
         public string City { get; }
         public string RawAddress { get; }        
         public string BankAccount { get; }
+        public Guid? BankId { get; }
         public Bank Bank { get; }
 
         public Requisite(string name,
@@ -20,6 +21,7 @@ namespace DocumentQuicker.BusinessLayer.Models
                          string city,
                          string rawAddress,
                          string bankAccount,
+                         Guid? bankId,
                          Bank bank,
                          Guid id, 
                          DateTime creationDate, 
@@ -35,7 +37,8 @@ namespace DocumentQuicker.BusinessLayer.Models
             City = city;
             RawAddress = rawAddress;
             BankAccount = bankAccount;
-            Bank = bank ?? throw new ArgumentNullException(nameof(bank));
+            BankId = bankId;
+            Bank = bank;
         }
     }
 }

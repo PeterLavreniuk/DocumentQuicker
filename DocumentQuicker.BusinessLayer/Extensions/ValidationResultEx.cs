@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DocumentQuicker.Api.Models;
+using DocumentQuicker.BusinessLayer.Models;
 using FluentValidation.Results;
 
-namespace DocumentQuicker.Api.Extensions
+namespace DocumentQuicker.BusinessLayer.Extensions
 {
     public static class ValidationResultEx
     {

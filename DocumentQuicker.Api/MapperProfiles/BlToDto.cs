@@ -8,7 +8,7 @@ namespace DocumentQuicker.Api.MapperProfiles
     {
         public BlToDto()
         {
-            CreateMap<Bank, BankInfoDto>()
+            CreateMap<Bank, BankDto>()
                 .ForMember(
                     dest => dest.Id,
                     opt => opt.MapFrom(scr => scr.Id))

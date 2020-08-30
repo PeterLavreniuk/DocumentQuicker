@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DocumentQuicker.Api.Models
 {
-    public sealed class ShortBankInfoDto
+    public sealed class ShortBankDto
     {
         [Required]
         [Description("Bank description. Includes name and city, etc.")]

@@ -47,10 +47,6 @@ namespace DocumentQuicker.DataProvider.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varbinary(16)");
 
-                    b.Property<string>("BankDescription")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Bic")
                         .IsRequired()
                         .HasColumnType("text");
@@ -61,6 +57,10 @@ namespace DocumentQuicker.DataProvider.Migrations
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("EditDate")
                         .HasColumnType("datetime");

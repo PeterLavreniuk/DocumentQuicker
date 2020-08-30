@@ -5,14 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DocumentQuicker.DataProvider.Models
 {
     //todo set attributes for properties
-    //todo rename?
     [Table("Banks")]
     public class BankEf : IBaseEntity
     {
         [Key]
         public Guid Id { get; set; }
         [Required]
-        public string BankDescription { get; set; }
+        public string Description { get; set; }
         [Required]
         public string Bic { get; set; }
         [Required]

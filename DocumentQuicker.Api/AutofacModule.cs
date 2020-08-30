@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
 using AutoMapper;
-using DocumentQuicker.Api.Interfaces;
-using DocumentQuicker.Api.Services;
-using DocumentQuicker.Api.Validators;
 using DocumentQuicker.BusinessLayer;
 using DocumentQuicker.DataProvider;
 using Microsoft.EntityFrameworkCore;
@@ -20,16 +17,6 @@ namespace DocumentQuicker.Api
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterModule(new DocumentQuickerBlModule());
-            
-            builder.Register(c =>
-                {
-                    var cfg = new ValidationDecoratorConfig();
-                    cfg.AddValidator(new ShortBankInfoDtoValidator());
-                    cfg.AddValidators(Assembly.GetExecutingAssembly());
-                    return new ValidationDecorator(cfg);
-                })
-                .As<IValidationDecorator>()
-                .SingleInstance();
 
             builder.Register(c => new MapperConfiguration(cfg =>
                 {

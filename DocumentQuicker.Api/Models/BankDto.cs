@@ -2,7 +2,7 @@ using System;
 
 namespace DocumentQuicker.Api.Models
 {
-    public sealed class BankInfoDto
+    public sealed class BankDto
     {
         public Guid Id { get; set; }
         public DateTime CreationDate { get; set;}

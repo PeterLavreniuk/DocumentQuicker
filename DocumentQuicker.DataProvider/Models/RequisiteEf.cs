@@ -16,7 +16,6 @@ namespace DocumentQuicker.DataProvider.Models
         public string City { get; set; }
         public string RawAddress { get; set; }        
         public string BankAccount { get; set; }
-
         public BankEf Bank { get; set; }
         [ForeignKey("Bank")]
         public Guid BankId { get; set; }

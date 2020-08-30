@@ -1,10 +1,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using DocumentQuicker.Api.Interfaces;
+using DocumentQuicker.BusinessLayer.Interfaces;
 using FluentValidation.Results;
 
-namespace DocumentQuicker.Api.Services
+namespace DocumentQuicker.BusinessLayer.Services
 {
     public class ValidationDecorator : IValidationDecorator
     {

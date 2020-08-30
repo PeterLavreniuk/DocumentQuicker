@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation.Results;
 
-namespace DocumentQuicker.Api.Interfaces
+namespace DocumentQuicker.BusinessLayer.Interfaces
 {
     public interface IValidationDecorator
     {

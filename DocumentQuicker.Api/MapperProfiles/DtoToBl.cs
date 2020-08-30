@@ -9,7 +9,7 @@ namespace DocumentQuicker.Api.MapperProfiles
     {
         public DtoToBl()
         {
-            CreateMap<ShortBankInfoDto, Bank>()
+            CreateMap<ShortBankDto, Bank>()
                 .ConstructUsing((x, ctx) => 
                     new Bank(description: x.Description,
                              bic: x.Bic,

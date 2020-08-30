@@ -1,4 +1,4 @@
-namespace DocumentQuicker.Api.Models
+namespace DocumentQuicker.BusinessLayer.Models
 {
     public sealed class ValidationDetails
     {
