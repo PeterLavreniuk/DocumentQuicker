@@ -18,7 +18,7 @@ namespace DocumentQuicker.DataProvider.Models
         public string BankAccount { get; set; }
         public BankEf Bank { get; set; }
         [ForeignKey("Bank")]
-        public Guid BankId { get; set; }
+        public Guid? BankId { get; set; }
 
         //IBaseEntity fields: 
         public DateTime CreationDate { get; set; }

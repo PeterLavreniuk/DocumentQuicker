@@ -7,8 +7,12 @@ namespace DocumentQuicker.BusinessLayer.Interfaces
 {
     public interface IRequisiteService
     {
-        Task<Requisite> Create(Requisite requisite);
-        Task<Requisite> Update(Requisite requisite);
+        Task<Requisite> Create(string name, string inn, string kpp,
+                               string city, string rawAddress, string bankAccount,
+                               Guid? bankId);
+        Task<Requisite> Update(Guid id, string name, string inn,
+                               string kpp, string city, string rawAddress,
+                               string bankAccount, Guid? bankId);
         Task<Requisite> Get(Guid id);
         Task<bool> Delete(Guid id);
         Task<IList<Requisite>> Get() => Get(count: Int32.MaxValue, offset: 0);

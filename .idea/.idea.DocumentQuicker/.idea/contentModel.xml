@@ -9,7 +9,8 @@
         <e p="AutofacModule.cs" t="Include" />
         <e p="Controllers" t="Include">
           <e p="AuthenticationController.cs" t="Include" />
-          <e p="BankInfoController.cs" t="Include" />
+          <e p="BankController.cs" t="Include" />
+          <e p="RequisiteController.cs" t="Include" />
         </e>
         <e p="DocumentQuicker.Api.csproj" t="IncludeRecursive" />
         <e p="Interfaces" t="Include">
@@ -17,12 +18,13 @@
         </e>
         <e p="MapperProfiles" t="Include">
           <e p="BlToDto.cs" t="Include" />
-          <e p="DtoToBl.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
           <e p="Dto" t="Include">
             <e p="BankDto.cs" t="Include" />
+            <e p="RequisiteDto.cs" t="Include" />
             <e p="ShortBankDto.cs" t="Include" />
+            <e p="ShortRequisiteDto.cs" t="Include" />
           </e>
           <e p="Requests" t="Include">
             <e p="AuthenticateRequest.cs" t="Include" />

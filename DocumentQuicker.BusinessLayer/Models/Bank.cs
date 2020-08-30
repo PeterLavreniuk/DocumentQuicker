@@ -11,15 +11,9 @@ namespace DocumentQuicker.BusinessLayer.Models
         public string Bic { get; }
         public string CorrAccount { get; }
 
-        public Bank(string description,
-                    string bic,
-                    string corrAccount,
-                    Guid id,
-                    DateTime creationDate,
-                    DateTime editDate,
-                    bool isActive) : base(id,
-                                          creationDate,
-                                          editDate,
+        public Bank(string description, string bic, string corrAccount,
+                    Guid id, DateTime creationDate, DateTime editDate,
+                    bool isActive) : base(id, creationDate, editDate,
                                           isActive)
         {
             Description = description;

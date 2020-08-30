@@ -15,21 +15,12 @@ namespace DocumentQuicker.BusinessLayer.Models
         public Guid? BankId { get; }
         public Bank Bank { get; }
 
-        public Requisite(string name,
-                         string inn,
-                         string kpp,
-                         string city,
-                         string rawAddress,
-                         string bankAccount,
-                         Guid? bankId,
-                         Bank bank,
-                         Guid id, 
-                         DateTime creationDate, 
-                         DateTime editDate,
-                         bool isActive) : base(id, 
-                                               creationDate, 
-                                               editDate,
-                                               isActive)
+        public Requisite(string name, string inn, string kpp,
+                         string city, string rawAddress, string bankAccount,
+                         Guid? bankId, Bank bank, Guid id, 
+                         DateTime creationDate, DateTime editDate, bool isActive) 
+                            : base(id, creationDate, editDate,
+                                   isActive)
         {
             Name = name;
             INN = inn;

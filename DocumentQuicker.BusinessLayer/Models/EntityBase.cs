@@ -9,9 +9,7 @@ namespace DocumentQuicker.BusinessLayer.Models
         public DateTime EditDate { get; }
         public bool IsActive { get; }
         
-        public EntityBase(Guid id, 
-                          DateTime creationDate, 
-                          DateTime editDate,
+        public EntityBase(Guid id, DateTime creationDate, DateTime editDate,
                           bool isActive)
         {
             Id = id;
