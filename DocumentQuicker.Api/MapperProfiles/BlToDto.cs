@@ -1,5 +1,6 @@
 using AutoMapper;
 using DocumentQuicker.Api.Models;
+using DocumentQuicker.Api.Models.Dto;
 using DocumentQuicker.BusinessLayer.Models;
 
 namespace DocumentQuicker.Api.MapperProfiles

@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace DocumentQuicker.Api.Models
+namespace DocumentQuicker.Api.Models.Dto
 {
     public sealed class ShortBankDto
     {

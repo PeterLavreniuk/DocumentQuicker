@@ -1,4 +1,4 @@
-namespace DocumentQuicker.Api.Models
+namespace DocumentQuicker.Api.Models.Responses
 {
     public class AuthenticateResponse
     {

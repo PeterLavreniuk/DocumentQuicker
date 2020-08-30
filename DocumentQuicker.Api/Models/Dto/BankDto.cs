@@ -1,6 +1,6 @@
 using System;
 
-namespace DocumentQuicker.Api.Models
+namespace DocumentQuicker.Api.Models.Dto
 {
     public sealed class BankDto
     {

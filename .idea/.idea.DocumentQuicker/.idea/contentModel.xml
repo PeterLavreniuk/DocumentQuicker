@@ -12,22 +12,38 @@
           <e p="BankInfoController.cs" t="Include" />
         </e>
         <e p="DocumentQuicker.Api.csproj" t="IncludeRecursive" />
+        <e p="Interfaces" t="Include">
+          <e p="IValidationDecorator.cs" t="Include" />
+        </e>
         <e p="MapperProfiles" t="Include">
           <e p="BlToDto.cs" t="Include" />
           <e p="DtoToBl.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
-          <e p="AuthenticateRequest.cs" t="Include" />
-          <e p="AuthenticateResponse.cs" t="Include" />
-          <e p="BankDto.cs" t="Include" />
-          <e p="ShortBankDto.cs" t="Include" />
+          <e p="Dto" t="Include">
+            <e p="BankDto.cs" t="Include" />
+            <e p="ShortBankDto.cs" t="Include" />
+          </e>
+          <e p="Requests" t="Include">
+            <e p="AuthenticateRequest.cs" t="Include" />
+          </e>
+          <e p="Responses" t="Include">
+            <e p="AuthenticateResponse.cs" t="Include" />
+          </e>
+          <e p="ValidationDetails.cs" t="Include" />
         </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
         </e>
-        <e p="Services" t="Include" />
+        <e p="Services" t="Include">
+          <e p="ValidationDecorator.cs" t="Include" />
+          <e p="ValidationDecoratorConfig.cs" t="Include" />
+        </e>
         <e p="Startup.cs" t="Include" />
+        <e p="Validator" t="Include">
+          <e p="ShortBankDtoValidator.cs" t="Include" />
+        </e>
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
@@ -42,13 +58,9 @@
       <e p="DocumentQuicker.BusinessLayer" t="IncludeRecursive">
         <e p="DocumentQuicker.BusinessLayer.csproj" t="IncludeRecursive" />
         <e p="DocumentQuickerBlModule.cs" t="Include" />
-        <e p="Extensions" t="Include">
-          <e p="ValidationResultEx.cs" t="Include" />
-        </e>
         <e p="Interfaces" t="Include">
           <e p="IBankService.cs" t="Include" />
           <e p="IRequisiteService.cs" t="Include" />
-          <e p="IValidationDecorator.cs" t="Include" />
         </e>
         <e p="MapperProfiles" t="Include">
           <e p="BlToDataProvider.cs" t="Include" />
@@ -58,13 +70,10 @@
           <e p="Bank.cs" t="Include" />
           <e p="EntityBase.cs" t="Include" />
           <e p="Requisite.cs" t="Include" />
-          <e p="ValidationDetails.cs" t="Include" />
         </e>
         <e p="Services" t="Include">
           <e p="BankService.cs" t="Include" />
           <e p="RequisiteService.cs" t="Include" />
-          <e p="ValidationDecorator.cs" t="Include" />
-          <e p="ValidationDecoratorConfig.cs" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">

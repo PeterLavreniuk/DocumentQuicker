@@ -10,15 +10,6 @@ namespace DocumentQuicker.BusinessLayer
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c =>
-                {
-                    var cfg = new ValidationDecoratorConfig();
-                    cfg.AddValidators(Assembly.GetExecutingAssembly());
-                    return new ValidationDecorator(cfg);
-                })
-                .As<IValidationDecorator>()
-                .SingleInstance();
-            
             builder.RegisterType<BankService>()
                 .As<IBankService>()
                 .InstancePerLifetimeScope();

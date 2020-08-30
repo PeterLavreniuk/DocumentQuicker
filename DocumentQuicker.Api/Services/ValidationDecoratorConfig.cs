@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using FluentValidation;
 
-namespace DocumentQuicker.BusinessLayer.Services
+namespace DocumentQuicker.Api.Services
 {
     public class ValidationDecoratorConfig
     {

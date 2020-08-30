@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using DocumentQuicker.Api.Interfaces;
 using DocumentQuicker.Api.Models;
+using DocumentQuicker.Api.Models.Dto;
 using DocumentQuicker.BusinessLayer.Interfaces;
 using DocumentQuicker.BusinessLayer.Models;
 using Microsoft.AspNetCore.Http;
@@ -16,12 +18,15 @@ namespace DocumentQuicker.Api.Controllers
     public sealed class BankInfoController : ControllerBase
     {
         private readonly IBankService _bankInfoService;
+        private readonly IValidationDecorator _validationDecorator;
         private readonly IMapper _mapper;
 
         public BankInfoController(IBankService bankInfoService,
+                                  IValidationDecorator validationDecorator,
                                   IMapper mapper)
         {
             _bankInfoService = bankInfoService ?? throw new ArgumentNullException(nameof(_bankInfoService));
+            _validationDecorator = validationDecorator ?? throw new ArgumentNullException(nameof(_validationDecorator));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));
         }
         
@@ -35,6 +40,12 @@ namespace DocumentQuicker.Api.Controllers
         {
             try
             {
+                var validationResult = await _validationDecorator.ValidateAsyncEx(bank);
+                if (!validationResult.Result)
+                {
+                    return BadRequest(validationResult.Errors);
+                }
+                
                 var result = await _bankInfoService.Create(description: bank.Description,
                                                            bic: bank.Bic,
                                                            corrAccount: bank.CorrAccount);
@@ -58,6 +69,12 @@ namespace DocumentQuicker.Api.Controllers
         {
             try
             {
+                var validationResult = await _validationDecorator.ValidateAsyncEx(bank);
+                if (!validationResult.Result)
+                {
+                    return BadRequest(validationResult.Errors);
+                }
+                
                 var result = await _bankInfoService.Update(id: id,
                                                            description: bank.Description,
                                                            bic: bank.Bic,
